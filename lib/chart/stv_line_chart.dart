@@ -9,6 +9,9 @@ part 'stv_chart_custom_paint.dart';
 part 'stv_dashed_line.dart';
 
 class STVLineChart extends StatelessWidget {
+  final double maxX;
+  final double maxY;
+
   final List<STVLineChartModel> lines;
   final STVGridChartModel? grid;
   final STVTileModel? tiles;
@@ -18,6 +21,8 @@ class STVLineChart extends StatelessWidget {
     required this.lines,
     this.grid,
     this.tiles,
+    required this.maxX,
+    required this.maxY,
   });
 
   @override
@@ -35,9 +40,8 @@ class STVLineChart extends StatelessWidget {
                   children: [
                     LayoutBuilder(builder: (context, constraints) {
                       return CustomPaint(
-                        foregroundPainter: _STVChartCustomPaint(
-                          lines,
-                        ),
+                        foregroundPainter:
+                            _STVChartCustomPaint(lines, maxX, maxY),
                         size: Size(
                           constraints.maxWidth,
                           constraints.maxHeight,

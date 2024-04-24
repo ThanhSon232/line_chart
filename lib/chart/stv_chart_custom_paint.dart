@@ -2,8 +2,10 @@ part of 'stv_line_chart.dart';
 
 class _STVChartCustomPaint extends CustomPainter {
   final List<STVLineChartModel> lines;
+  final double maxX;
+  final double maxY;
 
-  _STVChartCustomPaint(this.lines);
+  _STVChartCustomPaint(this.lines, this.maxX, this.maxY);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -17,8 +19,8 @@ class _STVChartCustomPaint extends CustomPainter {
             : PaintingStyle.stroke
         ..color = lines[i].configure.lineColor;
       for (int j = 0; j < lines[i].data.length; j++) {
-        var offset = Offset((lines[i].data[j].x / 14) * size.width,
-            size.height - (lines[i].data[j].y / 6) * size.height);
+        var offset = Offset((lines[i].data[j].x / maxX) * size.width,
+            size.height - (lines[i].data[j].y / maxY) * size.height);
         if (j == 0) {
           if (lines[i].configure.filled) {
             path.moveTo(offset.dx, size.height);
